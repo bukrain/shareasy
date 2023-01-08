@@ -1,4 +1,4 @@
-package com.bukrain.share;
+package com.bukrain.share.file;
 
 public enum ExpirationType {
     AFTER_DOWNLOAD,

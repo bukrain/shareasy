@@ -1,6 +1,6 @@
 package com.bukrain.share.webapi.file.model;
 
-import com.bukrain.share.ExpirationType;
+import com.bukrain.share.file.ExpirationType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;

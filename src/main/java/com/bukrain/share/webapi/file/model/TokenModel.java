@@ -1,6 +1,6 @@
 package com.bukrain.share.webapi.file.model;
 
-import com.bukrain.share.TokenType;
+import com.bukrain.share.token.TokenType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
