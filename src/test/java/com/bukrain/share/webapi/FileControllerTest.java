@@ -37,7 +37,7 @@ public class FileControllerTest {
                 .andExpect(jsonPath("$._embedded.files[0].name").value("fileName"))
                 .andExpect(jsonPath("$._embedded.files[0].uploadDate").isNotEmpty())
                 .andExpect(jsonPath("$._embedded.files[0].markedForDeletion").value(false))
-                .andExpect(jsonPath("$._embedded.files[0].expirationType").value("AFTER_DOWNLOAD"))
+                .andExpect(jsonPath("$._embedded.files[0].expirationType").value("SINGLE_USE"))
                 .andExpect(jsonPath("$._embedded.files[0].size").value(1024))
                 .andExpect(jsonPath("$._embedded.files[0].filePath").value("pathToFile"))
                 .andExpect(jsonPath("$._embedded.files[0].chunksCount").value(1))
@@ -49,7 +49,7 @@ public class FileControllerTest {
     @Test
     void createFileShouldReturnInformationAboutCreatedFile() throws Exception {
         FileCreate fileCreate = new FileCreate(
-                "fileName", ExpirationType.AFTER_DOWNLOAD, 1024, 3600
+                "fileName", ExpirationType.SINGLE_USE, 1024, 3600
         );
         this.mockMvc.perform(post("/api/v1/files")
                         .with(csrf())
@@ -60,7 +60,7 @@ public class FileControllerTest {
                 .andExpect(jsonPath("$.name").value("fileName"))
                 .andExpect(jsonPath("$.uploadDate").isNotEmpty())
                 .andExpect(jsonPath("$.markedForDeletion").value(false))
-                .andExpect(jsonPath("$.expirationType").value("AFTER_DOWNLOAD"))
+                .andExpect(jsonPath("$.expirationType").value("SINGLE_USE"))
                 .andExpect(jsonPath("$.size").value(1024))
                 .andExpect(jsonPath("$.filePath").value("pathToFile"))
                 .andExpect(jsonPath("$.chunksCount").value(1))
@@ -76,7 +76,7 @@ public class FileControllerTest {
                 .andExpect(jsonPath("$.name").value("fileName"))
                 .andExpect(jsonPath("$.uploadDate").isNotEmpty())
                 .andExpect(jsonPath("$.markedForDeletion").value(false))
-                .andExpect(jsonPath("$.expirationType").value("AFTER_DOWNLOAD"))
+                .andExpect(jsonPath("$.expirationType").value("SINGLE_USE"))
                 .andExpect(jsonPath("$.size").value(1024))
                 .andExpect(jsonPath("$.filePath").value("pathToFile"))
                 .andExpect(jsonPath("$.chunksCount").value(1))
