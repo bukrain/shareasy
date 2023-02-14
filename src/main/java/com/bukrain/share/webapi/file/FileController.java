@@ -1,7 +1,6 @@
 package com.bukrain.share.webapi.file;
 
 import com.bukrain.share.file.ExpirationType;
-import com.bukrain.share.token.TokenType;
 import com.bukrain.share.webapi.file.dto.*;
 import com.bukrain.share.webapi.file.model.FileModel;
 import com.bukrain.share.webapi.file.model.FileUpdateModel;
@@ -86,7 +85,7 @@ public class FileController {
                 "id",
                 3600,
                 false,
-                TokenType.TIME_BASED
+                ExpirationType.TIME_BASED
         ));
         return CollectionModel.of(tokenModel).withFallbackType(TokenModel.class);
     }
@@ -97,7 +96,7 @@ public class FileController {
                 "id",
                 3600,
                 false,
-                TokenType.TIME_BASED
+                ExpirationType.TIME_BASED
         );
     }
 
@@ -107,7 +106,7 @@ public class FileController {
                 "id",
                 3600,
                 false,
-                TokenType.TIME_BASED
+                ExpirationType.TIME_BASED
         );
     }
 

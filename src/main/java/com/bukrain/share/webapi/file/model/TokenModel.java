@@ -1,6 +1,6 @@
 package com.bukrain.share.webapi.file.model;
 
-import com.bukrain.share.token.TokenType;
+import com.bukrain.share.file.ExpirationType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
@@ -13,5 +13,5 @@ public class TokenModel extends RepresentationModel<TokenModel> {
     private final String id;
     private final Integer expire;
     private final boolean expired;
-    private final TokenType tokenType;
+    private final ExpirationType expirationType;
 }
