@@ -1,6 +1,6 @@
 package com.bukrain.share.webapi.file.dto;
 
-import com.bukrain.share.token.TokenType;
+import com.bukrain.share.file.ExpirationType;
 
-public record TokenCreate(Integer expire, TokenType tokenType) {
+public record TokenCreate(Integer expire, ExpirationType expirationType) {
 }

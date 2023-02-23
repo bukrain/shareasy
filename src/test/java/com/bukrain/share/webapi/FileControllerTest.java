@@ -1,7 +1,6 @@
 package com.bukrain.share.webapi;
 
 import com.bukrain.share.file.ExpirationType;
-import com.bukrain.share.token.TokenType;
 import com.bukrain.share.webapi.file.FileController;
 import com.bukrain.share.webapi.file.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class FileControllerTest {
 
     @Autowired
+    @SuppressWarnings("unused")
     private MockMvc mockMvc;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -49,7 +49,7 @@ public class FileControllerTest {
     @Test
     void createFileShouldReturnInformationAboutCreatedFile() throws Exception {
         FileCreate fileCreate = new FileCreate(
-                "fileName", ExpirationType.SINGLE_USE, 1024, 3600
+                "fileName", com.bukrain.share.file.ExpirationType.SINGLE_USE, 1024, 3600
         );
         this.mockMvc.perform(post("/api/v1/files")
                         .with(csrf())
@@ -93,7 +93,7 @@ public class FileControllerTest {
     @WithMockUser
     @Test
     void updateFileShouldReturnUpdatedFields() throws Exception {
-        FileUpdate fileUpdate = new FileUpdate(ExpirationType.TIME_BASED, 3600);
+        FileUpdate fileUpdate = new FileUpdate(com.bukrain.share.file.ExpirationType.TIME_BASED, 3600);
         this.mockMvc.perform(patch("/api/v1/files/id").with(csrf())
                         .content(objectMapper.writeValueAsString(fileUpdate))
                         .contentType(MediaType.APPLICATION_JSON))
@@ -119,7 +119,7 @@ public class FileControllerTest {
     void createTokenShouldReturnInformationAboutCreatedToken() throws Exception {
         TokenCreate tokenCreate = new TokenCreate(
                 3600,
-                TokenType.TIME_BASED
+                ExpirationType.TIME_BASED
         );
         this.mockMvc.perform(post("/api/v1/files/fileId/tokens").with(csrf())
                         .content(objectMapper.writeValueAsString(tokenCreate))
