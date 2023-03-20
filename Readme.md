@@ -13,9 +13,9 @@ Todo
 
 # How it works
 Todo
-### Uploading file
-Todo
-### Download of a file
+### Uploading a file
+![Sequence diagram of uploading a file](/docs/upload.svg)
+### Downloading a file
 Todo
 # Todo
 * Uploading of files
