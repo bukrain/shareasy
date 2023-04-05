@@ -1,1 +1,4 @@
 
+storage:
+  local:
+    enabled: ${LOCAL_STORAGE_ENABLED:true}
