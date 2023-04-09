@@ -1,4 +1,4 @@
-package com.bukrain.shareasy.file;
+package com.bukrain.shareasy.blob;
 
 public enum ExpirationType {
     SINGLE_USE,

@@ -1,11 +1,9 @@
 package com.bukrain.shareasy.webapi.file;
 
-import com.bukrain.shareasy.file.ExpirationType;
+import com.bukrain.shareasy.blob.ExpirationType;
+import com.bukrain.shareasy.blob.service.FileService;
 import com.bukrain.shareasy.webapi.file.dto.*;
-import com.bukrain.shareasy.webapi.file.model.FileModel;
-import com.bukrain.shareasy.webapi.file.model.FileUpdateModel;
-import com.bukrain.shareasy.webapi.file.model.FileUploadModel;
-import com.bukrain.shareasy.webapi.file.model.TokenModel;
+import com.bukrain.shareasy.webapi.file.model.*;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

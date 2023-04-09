@@ -1,6 +1,6 @@
 package com.bukrain.shareasy.webapi;
 
-import com.bukrain.shareasy.file.ExpirationType;
+import com.bukrain.shareasy.blob.ExpirationType;
 import com.bukrain.shareasy.webapi.file.FileController;
 import com.bukrain.shareasy.webapi.file.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,7 +49,7 @@ public class FileControllerTest {
     @Test
     void createFileShouldReturnInformationAboutCreatedFile() throws Exception {
         FileCreate fileCreate = new FileCreate(
-                "fileName", com.bukrain.shareasy.file.ExpirationType.SINGLE_USE, 1024, 3600
+                "fileName", com.bukrain.shareasy.blob.ExpirationType.SINGLE_USE, 1024, 3600
         );
         this.mockMvc.perform(post("/api/v1/files")
                         .with(csrf())
@@ -93,7 +93,7 @@ public class FileControllerTest {
     @WithMockUser
     @Test
     void updateFileShouldReturnUpdatedFields() throws Exception {
-        FileUpdate fileUpdate = new FileUpdate(com.bukrain.shareasy.file.ExpirationType.TIME_BASED, 3600);
+        FileUpdate fileUpdate = new FileUpdate(com.bukrain.shareasy.blob.ExpirationType.TIME_BASED, 3600);
         this.mockMvc.perform(patch("/api/v1/files/id").with(csrf())
                         .content(objectMapper.writeValueAsString(fileUpdate))
                         .contentType(MediaType.APPLICATION_JSON))
