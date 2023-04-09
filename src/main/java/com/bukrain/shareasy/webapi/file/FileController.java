@@ -7,6 +7,7 @@ import com.bukrain.shareasy.webapi.file.model.*;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +17,13 @@ import java.util.*;
 @RestController
 @RequestMapping(path = "/api/v1/files")
 public class FileController {
+
+    private final FileService fileService;
+    private final FileToFileModelConverter fileToFileModelConverter;
+    public FileController(FileService fileService, FileToFileModelConverter fileToFileModelConverter) {
+        this.fileService = fileService;
+        this.fileToFileModelConverter = fileToFileModelConverter;
+    }
 
     @GetMapping()
     public CollectionModel<FileModel> getFiles() {
@@ -28,15 +36,13 @@ public class FileController {
                 ExpirationType.SINGLE_USE,
                 1024,
                 "pathToFile",
-                1,
-                1,
-                3600
+                Instant.now()
         ));
         return CollectionModel.of(files).withFallbackType(FileModel.class);
     }
 
     @PostMapping()
-    public FileModel createFile(@RequestBody FileCreate fileCreate) {
+    public FileModel createFile(@RequestBody FileCreate fileCreate, Authentication authentication) {
         return new FileModel(
                 "id",
                 "fileName",
@@ -45,9 +51,7 @@ public class FileController {
                 ExpirationType.SINGLE_USE,
                 1024,
                 "pathToFile",
-                1,
-                1,
-                3600
+                Instant.now()
         );
     }
 
@@ -61,9 +65,7 @@ public class FileController {
                 ExpirationType.SINGLE_USE,
                 1024,
                 "pathToFile",
-                1,
-                1,
-                3600
+                Instant.now()
         );
     }
 
