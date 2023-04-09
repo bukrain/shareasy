@@ -17,7 +17,5 @@ public class FileMetadata {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private int size;
-    private int chunksCount;
-    private int chunksUploaded;
-    private String filePath;
+    private String fileName;
 }

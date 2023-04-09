@@ -15,11 +15,9 @@ public class FileModel extends RepresentationModel<FileModel> {
     private final String id;
     private final String name;
     private final Instant uploadDate;
-    private final boolean markedForDeletion;
+    private final boolean isMarkedForDeletion;
     private final ExpirationType expirationType;
     private final int size;
     private final String filePath;
-    private final int chunksCount;
-    private final int chunksUploaded;
-    private final Integer expire;
+    private final Instant expire;
 }

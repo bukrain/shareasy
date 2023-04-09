@@ -17,7 +17,6 @@ import java.util.List;
 @Setter
 public class File {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "username", nullable = false, updatable = false)
@@ -26,7 +25,6 @@ public class File {
     @JoinColumn(name = "metadata_id", referencedColumnName = "id", nullable = false, updatable = false)
     private FileMetadata fileMetadata;
     private String storagePath;
-    private String fileName;
     private Instant uploadDate;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expiration_id", referencedColumnName = "id", nullable = false, updatable = false)

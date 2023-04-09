@@ -20,7 +20,7 @@ public class Expiration {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private ExpirationType expirationType;
-    private Instant expire;
+    private Instant expireDate;
     private int useCount;
-    private boolean expired;
+    private boolean isExpired;
 }
