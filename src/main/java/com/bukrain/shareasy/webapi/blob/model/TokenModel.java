@@ -1,4 +1,4 @@
-package com.bukrain.shareasy.webapi.file.model;
+package com.bukrain.shareasy.webapi.blob.model;
 
 import com.bukrain.shareasy.blob.ExpirationType;
 import lombok.Getter;

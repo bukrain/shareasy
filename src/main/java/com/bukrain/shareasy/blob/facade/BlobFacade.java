@@ -1,4 +1,4 @@
 package com.bukrain.shareasy.blob.facade;
 
-public interface FileFacade {
+public interface BlobFacade {
 }

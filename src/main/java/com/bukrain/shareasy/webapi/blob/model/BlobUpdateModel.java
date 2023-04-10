@@ -1,4 +1,4 @@
-package com.bukrain.shareasy.webapi.file.model;
+package com.bukrain.shareasy.webapi.blob.model;
 
 import com.bukrain.shareasy.blob.ExpirationType;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.hateoas.RepresentationModel;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class FileUpdateModel extends RepresentationModel<FileUpdateModel> {
+public class BlobUpdateModel extends RepresentationModel<BlobUpdateModel> {
     private final String id;
     private ExpirationType expirationType;
     private Integer expire;

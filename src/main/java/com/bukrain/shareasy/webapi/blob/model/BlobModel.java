@@ -1,4 +1,4 @@
-package com.bukrain.shareasy.webapi.file.model;
+package com.bukrain.shareasy.webapi.blob.model;
 
 import com.bukrain.shareasy.blob.ExpirationType;
 import lombok.Getter;
@@ -10,14 +10,14 @@ import java.time.Instant;
 
 @Getter
 @RequiredArgsConstructor
-@Relation(collectionRelation = "files")
-public class FileModel extends RepresentationModel<FileModel> {
+@Relation(collectionRelation = "blobs")
+public class BlobModel extends RepresentationModel<BlobModel> {
     private final String id;
     private final String name;
     private final Instant uploadDate;
     private final boolean isMarkedForDeletion;
     private final ExpirationType expirationType;
     private final int size;
-    private final String filePath;
+    private final String blobPath;
     private final Instant expire;
 }

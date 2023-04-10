@@ -1,4 +1,4 @@
-package com.bukrain.shareasy.webapi.file.dto;
+package com.bukrain.shareasy.webapi.blob.dto;
 
 import com.bukrain.shareasy.blob.ExpirationType;
 

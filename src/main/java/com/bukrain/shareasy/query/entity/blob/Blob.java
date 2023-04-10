@@ -1,4 +1,4 @@
-package com.bukrain.shareasy.query.entity.file;
+package com.bukrain.shareasy.query.entity.blob;
 
 import com.bukrain.shareasy.query.entity.expiration.Expiration;
 import com.bukrain.shareasy.query.entity.token.Token;
@@ -11,11 +11,11 @@ import lombok.Setter;
 import java.time.Instant;
 import java.util.List;
 
-@Entity(name = "file")
+@Entity(name = "blob")
 @NoArgsConstructor
 @Getter
 @Setter
-public class File {
+public class Blob {
     @Id
     private String id;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,13 +23,13 @@ public class File {
     private User userId;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "metadata_id", referencedColumnName = "id", nullable = false, updatable = false)
-    private FileMetadata fileMetadata;
+    private BlobMetadata blobMetadata;
     private String storagePath;
     private Instant uploadDate;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expiration_id", referencedColumnName = "id", nullable = false, updatable = false)
     private Expiration expiration;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "file")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "blob")
     private List<Token> tokens;
 
 }

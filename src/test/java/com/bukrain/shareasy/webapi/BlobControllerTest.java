@@ -1,8 +1,8 @@
 package com.bukrain.shareasy.webapi;
 
 import com.bukrain.shareasy.blob.ExpirationType;
-import com.bukrain.shareasy.webapi.file.FileController;
-import com.bukrain.shareasy.webapi.file.dto.*;
+import com.bukrain.shareasy.webapi.blob.BlobController;
+import com.bukrain.shareasy.webapi.blob.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,8 +20,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(FileController.class)
-public class FileControllerTest {
+@WebMvcTest(BlobController.class)
+public class BlobControllerTest {
 
     @Autowired
     @SuppressWarnings("unused")
@@ -31,38 +31,38 @@ public class FileControllerTest {
 
     @WithMockUser
     @Test
-    void getFilesShouldReturnCollectionOfFileModel() throws Exception {
-        this.mockMvc.perform(get("/api/v1/files")).andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.files[0].id").value("id"))
-                .andExpect(jsonPath("$._embedded.files[0].name").value("fileName"))
-                .andExpect(jsonPath("$._embedded.files[0].uploadDate").isNotEmpty())
-                .andExpect(jsonPath("$._embedded.files[0].markedForDeletion").value(false))
-                .andExpect(jsonPath("$._embedded.files[0].expirationType").value("SINGLE_USE"))
-                .andExpect(jsonPath("$._embedded.files[0].size").value(1024))
-                .andExpect(jsonPath("$._embedded.files[0].filePath").value("pathToFile"))
-                .andExpect(jsonPath("$._embedded.files[0].chunksCount").value(1))
-                .andExpect(jsonPath("$._embedded.files[0].chunksUploaded").value(1))
-                .andExpect(jsonPath("$._embedded.files[0].expire").value(3600));
+    void getBlobssShouldReturnCollectionOfBlobModel() throws Exception {
+        this.mockMvc.perform(get("/api/v1/blobs")).andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.blobs[0].id").value("id"))
+                .andExpect(jsonPath("$._embedded.blobs[0].name").value("blobName"))
+                .andExpect(jsonPath("$._embedded.blobs[0].uploadDate").isNotEmpty())
+                .andExpect(jsonPath("$._embedded.blobs[0].markedForDeletion").value(false))
+                .andExpect(jsonPath("$._embedded.blobs[0].expirationType").value("SINGLE_USE"))
+                .andExpect(jsonPath("$._embedded.blobs[0].size").value(1024))
+                .andExpect(jsonPath("$._embedded.blobs[0].blobPath").value("pathToBlob"))
+                .andExpect(jsonPath("$._embedded.blobs[0].chunksCount").value(1))
+                .andExpect(jsonPath("$._embedded.blobs[0].chunksUploaded").value(1))
+                .andExpect(jsonPath("$._embedded.blobs[0].expire").value(3600));
     }
 
     @WithMockUser
     @Test
-    void createFileShouldReturnInformationAboutCreatedFile() throws Exception {
-        FileCreate fileCreate = new FileCreate(
-                "fileName", com.bukrain.shareasy.blob.ExpirationType.SINGLE_USE, 1024, 3600
+    void createBlobShouldReturnInformationAboutCreatedBlob() throws Exception {
+        BlobCreate blobCreate = new BlobCreate(
+                "blobName", com.bukrain.shareasy.blob.ExpirationType.SINGLE_USE, 1024, 3600
         );
-        this.mockMvc.perform(post("/api/v1/files")
+        this.mockMvc.perform(post("/api/v1/blobs")
                         .with(csrf())
-                        .content(objectMapper.writeValueAsString(fileCreate))
+                        .content(objectMapper.writeValueAsString(blobCreate))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("id"))
-                .andExpect(jsonPath("$.name").value("fileName"))
+                .andExpect(jsonPath("$.name").value("blobName"))
                 .andExpect(jsonPath("$.uploadDate").isNotEmpty())
                 .andExpect(jsonPath("$.markedForDeletion").value(false))
                 .andExpect(jsonPath("$.expirationType").value("SINGLE_USE"))
                 .andExpect(jsonPath("$.size").value(1024))
-                .andExpect(jsonPath("$.filePath").value("pathToFile"))
+                .andExpect(jsonPath("$.blobPath").value("pathToBlob"))
                 .andExpect(jsonPath("$.chunksCount").value(1))
                 .andExpect(jsonPath("$.chunksUploaded").value(1))
                 .andExpect(jsonPath("$.expire").value(3600));
@@ -70,15 +70,15 @@ public class FileControllerTest {
 
     @WithMockUser
     @Test
-    void getFileShouldReturnSingleFileModel() throws Exception {
-        this.mockMvc.perform(get("/api/v1/files/id")).andExpect(status().isOk())
+    void getBlobShouldReturnSingleBlobModel() throws Exception {
+        this.mockMvc.perform(get("/api/v1/blobs/id")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("id"))
-                .andExpect(jsonPath("$.name").value("fileName"))
+                .andExpect(jsonPath("$.name").value("blobName"))
                 .andExpect(jsonPath("$.uploadDate").isNotEmpty())
                 .andExpect(jsonPath("$.markedForDeletion").value(false))
                 .andExpect(jsonPath("$.expirationType").value("SINGLE_USE"))
                 .andExpect(jsonPath("$.size").value(1024))
-                .andExpect(jsonPath("$.filePath").value("pathToFile"))
+                .andExpect(jsonPath("$.blobPath").value("pathToBlob"))
                 .andExpect(jsonPath("$.chunksCount").value(1))
                 .andExpect(jsonPath("$.chunksUploaded").value(1))
                 .andExpect(jsonPath("$.expire").value(3600));
@@ -86,16 +86,16 @@ public class FileControllerTest {
 
     @WithMockUser
     @Test
-    void deleteFileShouldReturn204Status() throws Exception {
-        this.mockMvc.perform(delete("/api/v1/files/id").with(csrf())).andExpect(status().isNoContent());
+    void deleteBlobShouldReturn204Status() throws Exception {
+        this.mockMvc.perform(delete("/api/v1/blobs/id").with(csrf())).andExpect(status().isNoContent());
     }
 
     @WithMockUser
     @Test
-    void updateFileShouldReturnUpdatedFields() throws Exception {
-        FileUpdate fileUpdate = new FileUpdate(com.bukrain.shareasy.blob.ExpirationType.TIME_BASED, 3600);
-        this.mockMvc.perform(patch("/api/v1/files/id").with(csrf())
-                        .content(objectMapper.writeValueAsString(fileUpdate))
+    void updateBlobShouldReturnUpdatedFields() throws Exception {
+        BlobUpdate blobUpdate = new BlobUpdate(com.bukrain.shareasy.blob.ExpirationType.TIME_BASED, 3600);
+        this.mockMvc.perform(patch("/api/v1/blobs/id").with(csrf())
+                        .content(objectMapper.writeValueAsString(blobUpdate))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("id"))
@@ -106,7 +106,7 @@ public class FileControllerTest {
     @WithMockUser
     @Test
     void getTokensShouldReturnCollectionOfTokens() throws Exception {
-        this.mockMvc.perform(get("/api/v1/files/fileId/tokens"))
+        this.mockMvc.perform(get("/api/v1/blobs/blobId/tokens"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.tokens[0].id").value("id"))
                 .andExpect(jsonPath("$._embedded.tokens[0].expire").value(3600))
@@ -121,7 +121,7 @@ public class FileControllerTest {
                 3600,
                 ExpirationType.TIME_BASED
         );
-        this.mockMvc.perform(post("/api/v1/files/fileId/tokens").with(csrf())
+        this.mockMvc.perform(post("/api/v1/blobs/blobId/tokens").with(csrf())
                         .content(objectMapper.writeValueAsString(tokenCreate))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -134,7 +134,7 @@ public class FileControllerTest {
     @WithMockUser
     @Test
     void getTokenShouldReturnSingleTokenModel() throws Exception {
-        this.mockMvc.perform(get("/api/v1/files/fileId/tokens/id"))
+        this.mockMvc.perform(get("/api/v1/blobs/blobId/tokens/id"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("id"))
                 .andExpect(jsonPath("$.expire").value(3600))
@@ -145,19 +145,19 @@ public class FileControllerTest {
     @WithMockUser
     @Test
     void deleteTokenShouldReturn204Status() throws Exception {
-        this.mockMvc.perform(delete("/api/v1/files/fileId/tokens/id").with(csrf()))
+        this.mockMvc.perform(delete("/api/v1/blobs/blobId/tokens/id").with(csrf()))
                 .andExpect(status().isNoContent());
     }
 
     @WithMockUser
     @Test
-    void uploadFileShouldReturnFileUploadModel() throws Exception {
+    void uploadBlobShouldReturnBlobUploadModel() throws Exception {
         MockMultipartFile multipartFile = new MockMultipartFile(
-                "file",
+                "blob",
                 "test.txt",
                 null,
                 "Test".getBytes());
-        this.mockMvc.perform(multipart("/api/v1/files/fileId/upload")
+        this.mockMvc.perform(multipart("/api/v1/blobs/blobId/upload")
                         .file(multipartFile)
                         .param("chunkIndex", "0")
                         .contentType(MediaType.MULTIPART_FORM_DATA)
@@ -168,9 +168,9 @@ public class FileControllerTest {
 
     @WithMockUser
     @Test
-    void downloadFileShouldReturnBytesOfFile() throws Exception {
+    void downloadBlobShouldReturnBytesOfBlob() throws Exception {
         byte[] expectedBytes = new byte[0];
-        this.mockMvc.perform(post("/api/v1/files/fileId/download")
+        this.mockMvc.perform(post("/api/v1/blobs/blobId/download")
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("token", "dummyToken")
                         .param("chunkStartIndex", "0")

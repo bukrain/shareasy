@@ -1,4 +1,4 @@
-package com.bukrain.shareasy.query.entity.file;
+package com.bukrain.shareasy.query.entity.blob;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,14 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "file_metadata")
+@Entity(name = "blob_metadata")
 @NoArgsConstructor
 @Getter
 @Setter
-public class FileMetadata {
+public class BlobMetadata {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private int size;
-    private String fileName;
+    private String name;
 }
