@@ -1,7 +1,7 @@
 package com.bukrain.shareasy.webapi.blob;
 
 import com.bukrain.shareasy.blob.ExpirationType;
-import com.bukrain.shareasy.blob.service.BlobService;
+import com.bukrain.shareasy.blob.facade.BlobFacade;
 import com.bukrain.shareasy.webapi.blob.dto.*;
 import com.bukrain.shareasy.webapi.blob.model.*;
 import org.springframework.hateoas.CollectionModel;
@@ -18,11 +18,9 @@ import java.util.*;
 @RequestMapping(path = "/api/v1/blobs")
 public class BlobController {
 
-    private final BlobService blobService;
-    private final BlobToBlobModelConverter blobToBlobModelConverter;
-    public BlobController(BlobService blobService, BlobToBlobModelConverter blobToBlobModelConverter) {
-        this.blobService = blobService;
-        this.blobToBlobModelConverter = blobToBlobModelConverter;
+    private final BlobFacade blobFacade;
+    public BlobController(BlobFacade blobFacade) {
+        this.blobFacade = blobFacade;
     }
 
     @GetMapping()
