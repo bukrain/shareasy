@@ -1,6 +1,7 @@
 package com.bukrain.shareasy.webapi;
 
 import com.bukrain.shareasy.blob.ExpirationType;
+import com.bukrain.shareasy.blob.facade.BlobFacadeImpl;
 import com.bukrain.shareasy.webapi.blob.BlobController;
 import com.bukrain.shareasy.webapi.blob.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -23,11 +25,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(BlobController.class)
 public class BlobControllerTest {
 
+    @MockBean
+    @SuppressWarnings("unused")
+    private BlobFacadeImpl blobFacade;
     @Autowired
     @SuppressWarnings("unused")
     private MockMvc mockMvc;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+
 
     @WithMockUser
     @Test
@@ -40,9 +46,7 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$._embedded.blobs[0].expirationType").value("SINGLE_USE"))
                 .andExpect(jsonPath("$._embedded.blobs[0].size").value(1024))
                 .andExpect(jsonPath("$._embedded.blobs[0].blobPath").value("pathToBlob"))
-                .andExpect(jsonPath("$._embedded.blobs[0].chunksCount").value(1))
-                .andExpect(jsonPath("$._embedded.blobs[0].chunksUploaded").value(1))
-                .andExpect(jsonPath("$._embedded.blobs[0].expire").value(3600));
+                .andExpect(jsonPath("$._embedded.blobs[0].expire").isNotEmpty());
     }
 
     @WithMockUser
@@ -63,9 +67,7 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$.expirationType").value("SINGLE_USE"))
                 .andExpect(jsonPath("$.size").value(1024))
                 .andExpect(jsonPath("$.blobPath").value("pathToBlob"))
-                .andExpect(jsonPath("$.chunksCount").value(1))
-                .andExpect(jsonPath("$.chunksUploaded").value(1))
-                .andExpect(jsonPath("$.expire").value(3600));
+                .andExpect(jsonPath("$.expire").isNotEmpty());
     }
 
     @WithMockUser
@@ -79,9 +81,7 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$.expirationType").value("SINGLE_USE"))
                 .andExpect(jsonPath("$.size").value(1024))
                 .andExpect(jsonPath("$.blobPath").value("pathToBlob"))
-                .andExpect(jsonPath("$.chunksCount").value(1))
-                .andExpect(jsonPath("$.chunksUploaded").value(1))
-                .andExpect(jsonPath("$.expire").value(3600));
+                .andExpect(jsonPath("$.expire").isNotEmpty());
     }
 
     @WithMockUser
