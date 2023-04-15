@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.0.1'
-	id 'io.spring.dependency-management' version '1.1.0' // https://docs.spring.io/spring-boot/docs/3.0.1/reference/html/dependency-versions.html
+	id 'org.springframework.boot' version '3.0.5'
+	id 'io.spring.dependency-management' version '1.1.0' // https://docs.spring.io/spring-boot/docs/3.0.5/reference/html/dependency-versions.html
 }
 
 ext {
@@ -26,10 +26,13 @@ dependencies {
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion"
 	implementation "org.apache.jclouds:jclouds-all:$jcloudsVersion"
 	implementation "com.fasterxml.uuid:java-uuid-generator:4.1.0"
+	implementation "org.springframework.boot:spring-boot-starter-validation"
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }
