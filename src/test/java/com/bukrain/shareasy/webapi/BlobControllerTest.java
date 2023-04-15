@@ -1,6 +1,6 @@
 package com.bukrain.shareasy.webapi;
 
-import com.bukrain.shareasy.blob.ExpirationType;
+import com.bukrain.shareasy.expiration.ExpirationType;
 import com.bukrain.shareasy.blob.facade.BlobFacadeImpl;
 import com.bukrain.shareasy.webapi.blob.BlobController;
 import com.bukrain.shareasy.webapi.blob.dto.*;
@@ -53,7 +53,7 @@ public class BlobControllerTest {
     @Test
     void createBlobShouldReturnInformationAboutCreatedBlob() throws Exception {
         BlobCreate blobCreate = new BlobCreate(
-                "blobName", com.bukrain.shareasy.blob.ExpirationType.SINGLE_USE, 1024, 3600
+                "blobName", ExpirationType.SINGLE_USE, 1024, 3600
         );
         this.mockMvc.perform(post("/api/v1/blobs")
                         .with(csrf())
@@ -93,7 +93,7 @@ public class BlobControllerTest {
     @WithMockUser
     @Test
     void updateBlobShouldReturnUpdatedFields() throws Exception {
-        BlobUpdate blobUpdate = new BlobUpdate(com.bukrain.shareasy.blob.ExpirationType.TIME_BASED, 3600);
+        BlobUpdate blobUpdate = new BlobUpdate(ExpirationType.TIME_BASED, 3600);
         this.mockMvc.perform(patch("/api/v1/blobs/id").with(csrf())
                         .content(objectMapper.writeValueAsString(blobUpdate))
                         .contentType(MediaType.APPLICATION_JSON))

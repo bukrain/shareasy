@@ -1,6 +1,6 @@
 package com.bukrain.shareasy.webapi.blob.model;
 
-import com.bukrain.shareasy.blob.ExpirationType;
+import com.bukrain.shareasy.expiration.ExpirationType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;

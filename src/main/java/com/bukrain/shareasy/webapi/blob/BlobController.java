@@ -1,6 +1,6 @@
 package com.bukrain.shareasy.webapi.blob;
 
-import com.bukrain.shareasy.blob.ExpirationType;
+import com.bukrain.shareasy.expiration.ExpirationType;
 import com.bukrain.shareasy.blob.facade.BlobFacade;
 import com.bukrain.shareasy.webapi.blob.dto.*;
 import com.bukrain.shareasy.webapi.blob.model.*;

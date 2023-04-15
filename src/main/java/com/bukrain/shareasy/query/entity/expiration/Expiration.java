@@ -1,6 +1,6 @@
 package com.bukrain.shareasy.query.entity.expiration;
 
-import com.bukrain.shareasy.blob.ExpirationType;
+import com.bukrain.shareasy.expiration.ExpirationType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
