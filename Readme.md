@@ -1,6 +1,6 @@
 # Shareasy
 Shareasy is a self-hosted web application that lets you share files easily. It supports resumable secure uploads
-and downloads. Downloads can be limited by lifetime or download limit of file. Uploaded files are sharable
+and downloads. Downloads can be limited by lifetime or download limit of blob. Uploaded files are sharable
 using hard to guess URL or QR code which can be additionally secured with password.
 
 # Running application
@@ -10,12 +10,34 @@ Todo
 * Secure and reliable download of files.
 * Cleanup of expired files.
 * Share your files using either URL or QR code.
+* Your files can only download people with thom you have shared link or QR code.
+* Authorized and unauthorized users can upload and download files.
 
-# How it works
-Todo
-### Uploading a file
-![Sequence diagram of uploading a file](/docs/upload.svg)
-### Downloading a file
+# Usage
+
+### Uploading a blob
+To upload blob, firstly we need to make POST request
+
+Request:
+```
+```
+Response:
+```
+```
+Then we can upload chunks of size 4096KB of our blob, using PATCH request
+
+Request:
+```
+```
+Response:
+```
+```
+After uploading of all chunks, the last request response will be
+
+Response:
+```
+```
+### Downloading a blob
 Todo
 # Todo
 * Uploading of files
