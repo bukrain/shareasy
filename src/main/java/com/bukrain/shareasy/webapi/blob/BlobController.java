@@ -39,14 +39,7 @@ public class BlobController {
 
     @PostMapping()
     public BlobModel createBlob(@RequestBody BlobCreate blobCreate, Authentication authentication) {
-        return new BlobModel(
-                "id",
-                "blobName",
-                Instant.now(),
-                false,
-                1024,
-                "pathToBlob"
-        );
+        return blobFacade.create(blobCreate, authentication.getName());
     }
 
     @GetMapping("/{blobId}")

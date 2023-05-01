@@ -4,6 +4,7 @@ import com.bukrain.shareasy.expiration.ExpirationType;
 import com.bukrain.shareasy.blob.facade.BlobFacadeImpl;
 import com.bukrain.shareasy.webapi.blob.BlobController;
 import com.bukrain.shareasy.webapi.blob.dto.*;
+import com.bukrain.shareasy.webapi.blob.model.BlobModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +18,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 
+import java.time.Instant;
+
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -24,10 +28,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(BlobController.class)
 public class BlobControllerTest {
+    
+    private static final String USERNAME = "someUser";
 
     @MockBean
     @SuppressWarnings("unused")
     private BlobFacadeImpl blobFacade;
+    
     @Autowired
     @SuppressWarnings("unused")
     private MockMvc mockMvc;
@@ -35,7 +42,7 @@ public class BlobControllerTest {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void getBlobssShouldReturnCollectionOfBlobModel() throws Exception {
         this.mockMvc.perform(get("/api/v1/blobs")).andExpect(status().isOk())
@@ -47,12 +54,21 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$._embedded.blobs[0].blobPath").value("pathToBlob"));
     }
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void createBlobShouldReturnInformationAboutCreatedBlob() throws Exception {
         BlobCreate blobCreate = new BlobCreate(
                 "blobName", 1024
         );
+        var blobModel = new BlobModel(
+                "id",
+                "blobName",
+                Instant.now(),
+                false,
+                1024,
+                "pathToBlob"
+        );
+        doReturn(blobModel).when(blobFacade).create(blobCreate, USERNAME);
         this.mockMvc.perform(post("/api/v1/blobs")
                         .with(csrf())
                         .content(objectMapper.writeValueAsString(blobCreate))
@@ -66,7 +82,7 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$.blobPath").value("pathToBlob"));
     }
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void getBlobShouldReturnSingleBlobModel() throws Exception {
         this.mockMvc.perform(get("/api/v1/blobs/id")).andExpect(status().isOk())
@@ -78,13 +94,13 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$.blobPath").value("pathToBlob"));
     }
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void deleteBlobShouldReturn204Status() throws Exception {
         this.mockMvc.perform(delete("/api/v1/blobs/id").with(csrf())).andExpect(status().isNoContent());
     }
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void updateBlobShouldReturnUpdatedFields() throws Exception {
         BlobUpdate blobUpdate = new BlobUpdate(ExpirationType.TIME_BASED, 3600);
@@ -97,7 +113,7 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$.expire").value(3600));
     }
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void getTokensShouldReturnCollectionOfTokens() throws Exception {
         this.mockMvc.perform(get("/api/v1/blobs/blobId/tokens"))
@@ -108,7 +124,7 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$._embedded.tokens[0].expirationType").value("TIME_BASED"));
     }
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void createTokenShouldReturnInformationAboutCreatedToken() throws Exception {
         TokenCreate tokenCreate = new TokenCreate(
@@ -125,7 +141,7 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$.expirationType").value("TIME_BASED"));
     }
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void getTokenShouldReturnSingleTokenModel() throws Exception {
         this.mockMvc.perform(get("/api/v1/blobs/blobId/tokens/id"))
@@ -136,14 +152,14 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$.expirationType").value("TIME_BASED"));
     }
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void deleteTokenShouldReturn204Status() throws Exception {
         this.mockMvc.perform(delete("/api/v1/blobs/blobId/tokens/id").with(csrf()))
                 .andExpect(status().isNoContent());
     }
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void uploadBlobShouldReturnBlobUploadModel() throws Exception {
         MockMultipartFile multipartFile = new MockMultipartFile(
@@ -160,7 +176,7 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$.id").value("id"));
     }
 
-    @WithMockUser
+    @WithMockUser(USERNAME)
     @Test
     void downloadBlobShouldReturnBytesOfBlob() throws Exception {
         byte[] expectedBytes = new byte[0];
