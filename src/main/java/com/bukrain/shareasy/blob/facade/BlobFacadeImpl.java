@@ -2,7 +2,6 @@ package com.bukrain.shareasy.blob.facade;
 
 import com.bukrain.shareasy.blob.service.BlobService;
 import com.bukrain.shareasy.expiration.service.ExpirationService;
-import com.bukrain.shareasy.query.entity.blob.Blob;
 import com.bukrain.shareasy.webapi.blob.dto.BlobCreate;
 import com.bukrain.shareasy.webapi.blob.model.BlobModel;
 import com.bukrain.shareasy.webapi.blob.model.BlobToBlobModelConverter;
