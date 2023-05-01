@@ -15,9 +15,7 @@ public class BlobModel extends RepresentationModel<BlobModel> {
     private final String id;
     private final String name;
     private final Instant uploadDate;
-    private final boolean isMarkedForDeletion;
-    private final ExpirationType expirationType;
+    private final boolean isDeleted;
     private final int size;
     private final String blobPath;
-    private final Instant expire;
 }

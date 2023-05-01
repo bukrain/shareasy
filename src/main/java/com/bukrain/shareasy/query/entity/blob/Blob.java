@@ -26,10 +26,8 @@ public class Blob {
     private BlobMetadata blobMetadata;
     private String storagePath;
     private Instant uploadDate;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "expiration_id", referencedColumnName = "id", nullable = false, updatable = false)
-    private Expiration expiration;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "blob")
     private List<Token> tokens;
+    private boolean isDeleted;
 
 }

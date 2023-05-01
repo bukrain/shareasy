@@ -31,10 +31,8 @@ public class BlobController {
                 "blobName",
                 Instant.now(),
                 false,
-                ExpirationType.SINGLE_USE,
                 1024,
-                "pathToBlob",
-                Instant.now()
+                "pathToBlob"
         ));
         return CollectionModel.of(blobs).withFallbackType(BlobModel.class);
     }
@@ -46,10 +44,8 @@ public class BlobController {
                 "blobName",
                 Instant.now(),
                 false,
-                ExpirationType.SINGLE_USE,
                 1024,
-                "pathToBlob",
-                Instant.now()
+                "pathToBlob"
         );
     }
 
@@ -60,10 +56,8 @@ public class BlobController {
                 "blobName",
                 Instant.now(),
                 false,
-                ExpirationType.SINGLE_USE,
                 1024,
-                "pathToBlob",
-                Instant.now()
+                "pathToBlob"
         );
     }
 

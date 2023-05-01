@@ -42,18 +42,16 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$._embedded.blobs[0].id").value("id"))
                 .andExpect(jsonPath("$._embedded.blobs[0].name").value("blobName"))
                 .andExpect(jsonPath("$._embedded.blobs[0].uploadDate").isNotEmpty())
-                .andExpect(jsonPath("$._embedded.blobs[0].markedForDeletion").value(false))
-                .andExpect(jsonPath("$._embedded.blobs[0].expirationType").value("SINGLE_USE"))
+                .andExpect(jsonPath("$._embedded.blobs[0].deleted").value(false))
                 .andExpect(jsonPath("$._embedded.blobs[0].size").value(1024))
-                .andExpect(jsonPath("$._embedded.blobs[0].blobPath").value("pathToBlob"))
-                .andExpect(jsonPath("$._embedded.blobs[0].expire").isNotEmpty());
+                .andExpect(jsonPath("$._embedded.blobs[0].blobPath").value("pathToBlob"));
     }
 
     @WithMockUser
     @Test
     void createBlobShouldReturnInformationAboutCreatedBlob() throws Exception {
         BlobCreate blobCreate = new BlobCreate(
-                "blobName", ExpirationType.SINGLE_USE, 1024, 3600
+                "blobName", 1024
         );
         this.mockMvc.perform(post("/api/v1/blobs")
                         .with(csrf())
@@ -63,11 +61,9 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$.id").value("id"))
                 .andExpect(jsonPath("$.name").value("blobName"))
                 .andExpect(jsonPath("$.uploadDate").isNotEmpty())
-                .andExpect(jsonPath("$.markedForDeletion").value(false))
-                .andExpect(jsonPath("$.expirationType").value("SINGLE_USE"))
+                .andExpect(jsonPath("$.deleted").value(false))
                 .andExpect(jsonPath("$.size").value(1024))
-                .andExpect(jsonPath("$.blobPath").value("pathToBlob"))
-                .andExpect(jsonPath("$.expire").isNotEmpty());
+                .andExpect(jsonPath("$.blobPath").value("pathToBlob"));
     }
 
     @WithMockUser
@@ -77,11 +73,9 @@ public class BlobControllerTest {
                 .andExpect(jsonPath("$.id").value("id"))
                 .andExpect(jsonPath("$.name").value("blobName"))
                 .andExpect(jsonPath("$.uploadDate").isNotEmpty())
-                .andExpect(jsonPath("$.markedForDeletion").value(false))
-                .andExpect(jsonPath("$.expirationType").value("SINGLE_USE"))
+                .andExpect(jsonPath("$.deleted").value(false))
                 .andExpect(jsonPath("$.size").value(1024))
-                .andExpect(jsonPath("$.blobPath").value("pathToBlob"))
-                .andExpect(jsonPath("$.expire").isNotEmpty());
+                .andExpect(jsonPath("$.blobPath").value("pathToBlob"));
     }
 
     @WithMockUser

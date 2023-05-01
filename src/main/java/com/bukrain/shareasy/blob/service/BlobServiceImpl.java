@@ -1,6 +1,5 @@
 package com.bukrain.shareasy.blob.service;
 
-import com.bukrain.shareasy.query.entity.expiration.Expiration;
 import com.bukrain.shareasy.query.entity.blob.Blob;
 import com.bukrain.shareasy.query.entity.blob.BlobMetadata;
 import com.bukrain.shareasy.query.entity.user.User;
@@ -31,7 +30,7 @@ public class BlobServiceImpl implements BlobService {
     }
 
     @Override
-    public Blob saveBlobInformation(BlobCreate blobCreate, String username, String blobMetadataId, String expirationId) {
+    public Blob saveBlobInformation(BlobCreate blobCreate, String username, String blobMetadataId) {
         User user = new User();
         user.setUsername(username);
 
@@ -40,16 +39,13 @@ public class BlobServiceImpl implements BlobService {
         BlobMetadata blobMetadata = new BlobMetadata();
         blobMetadata.setId(blobMetadataId);
 
-        Expiration expiration = new Expiration();
-        expiration.setId(expirationId);
-
         Blob blob = new Blob();
         blob.setId(blobId);
         blob.setUserId(user);
         blob.setStoragePath(getBlobStoragePath(username, blobId));
         blob.setUploadDate(Instant.now());
-        blob.setExpiration(expiration);
         blob.setTokens(new ArrayList<>());
+        blob.setDeleted(false);
 
         return blobRepository.save(blob);
     }

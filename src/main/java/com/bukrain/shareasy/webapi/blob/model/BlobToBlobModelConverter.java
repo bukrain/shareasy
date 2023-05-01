@@ -11,11 +11,9 @@ public class BlobToBlobModelConverter {
                 blob.getId(),
                 blobMetadata.getName(),
                 blob.getUploadDate(),
-                blob.getExpiration().isExpired(),
-                expiration.getExpirationType(),
+                blob.isDeleted(),
                 blobMetadata.getSize(),
-                null,
-                expiration.getExpireDate()
+                null
         );
     }
 }

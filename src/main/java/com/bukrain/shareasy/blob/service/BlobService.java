@@ -6,5 +6,5 @@ import com.bukrain.shareasy.webapi.blob.dto.BlobCreate;
 
 public interface BlobService {
     BlobMetadata saveBlobMetadata(BlobCreate blobCreate);
-    Blob saveBlobInformation(BlobCreate blobCreate, String username, String blobMetadataId, String expirationId);
+    Blob saveBlobInformation(BlobCreate blobCreate, String username, String blobMetadataId);
 }
