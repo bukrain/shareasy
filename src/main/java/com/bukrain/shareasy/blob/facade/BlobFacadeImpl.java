@@ -22,7 +22,8 @@ public class BlobFacadeImpl implements BlobFacade {
     }
 
     public BlobModel create(BlobCreate blobCreate, String username) {
-
-        return null;
+        var metadata = blobService.saveBlobMetadata(blobCreate);
+        var blob = blobService.saveBlobInformation(blobCreate, username, metadata.getId());
+        return blobToBlobModelConverter.convert(blob, metadata);
     }
 }
