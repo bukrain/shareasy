@@ -14,11 +14,6 @@ public class ExpirationServiceImpl implements ExpirationService{
     @Override
     public Expiration saveExpirationInformation() {
         Expiration expiration = new Expiration();
-        expiration.setId();
-        expiration.setExpirationType();
-        expiration.setExpireDate();
-        expiration.setExpired();
-        expiration.setUseCount();
         return expirationRepository.save(expiration);
     }
 }
