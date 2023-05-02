@@ -44,7 +44,7 @@ public class BlobControllerTest {
 
     @WithMockUser(USERNAME)
     @Test
-    void getBlobssShouldReturnCollectionOfBlobModel() throws Exception {
+    void getBlobsShouldReturnCollectionOfBlobModel() throws Exception {
         this.mockMvc.perform(get("/api/v1/blobs")).andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.blobs[0].id").value("id"))
                 .andExpect(jsonPath("$._embedded.blobs[0].name").value("blobName"))
