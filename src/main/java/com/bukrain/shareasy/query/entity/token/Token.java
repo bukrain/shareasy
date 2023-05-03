@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Entity(name = "token")
 @NoArgsConstructor
 @Getter
@@ -24,4 +26,27 @@ public class Token {
     private String url;
     private String password;
     private String salt;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Token token = (Token) o;
+        return id.equals(token.id) && Objects.equals(blob, token.blob) && Objects.equals(expiration, token.expiration) && Objects.equals(url, token.url) && Objects.equals(password, token.password) && Objects.equals(salt, token.salt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, blob, expiration, url, password, salt);
+    }
+
+    @Override
+    public String toString() {
+        return "Token{" +
+                "id='" + id + '\'' +
+                ", blob=" + blob +
+                ", expiration=" + expiration +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }

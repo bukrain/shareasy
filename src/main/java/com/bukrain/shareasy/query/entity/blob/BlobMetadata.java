@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Entity(name = "blob_metadata")
 @NoArgsConstructor
 @Getter
@@ -18,4 +20,26 @@ public class BlobMetadata {
     private String id;
     private int size;
     private String name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BlobMetadata metadata = (BlobMetadata) o;
+        return size == metadata.size && id.equals(metadata.id) && name.equals(metadata.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, size, name);
+    }
+
+    @Override
+    public String toString() {
+        return "BlobMetadata{" +
+                "id='" + id + '\'' +
+                ", size=" + size +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
