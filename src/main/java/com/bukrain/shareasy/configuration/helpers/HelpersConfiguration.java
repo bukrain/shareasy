@@ -1,4 +1,4 @@
-package com.bukrain.shareasy.helpers;
+package com.bukrain.shareasy.configuration.helpers;
 
 import com.bukrain.shareasy.helpers.id.IdGenerator;
 import com.bukrain.shareasy.helpers.id.UUIDGenerator;
